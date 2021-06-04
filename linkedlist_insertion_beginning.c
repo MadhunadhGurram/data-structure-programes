@@ -8,14 +8,17 @@ struct node
 struct node* start = NULL;
 struct node* createll(struct node *);
 void display(struct node *);
+struct node* insert_beg(struct node*);
 void main()
 {
 	int option;
 	do
 	{
-		printf("\n enter 1, to create a list.");
-		printf("\nenter 2, to display a list.");
-		printf("\nenter 3, to exit.");
+		printf("\n\n *****MAIN MENU *****");
+ 		printf("\n 1: Create a list");
+ 		printf("\n 2: Display the list");
+ 		printf("\n 3: inserting a node at begining of the list");
+ 		printf("\n 4: Exit");
 		printf("\nenter your option: ");
 		scanf("%d",&option);
 		switch(option)
@@ -27,14 +30,17 @@ void main()
 			case 2:
 				display (start);
 				break;
+			case 3:
+				start = insert_beg(start);
 		}
-	}while(option != 3);
+	}while(option != 4);
 }
 struct node* createll(struct node* start)
 {
-	struct node* newnode, * ptr;
+	struct node *newnode; 
+	struct node *ptr;
 	int num;
-	printf("\n enter the data or -1 to end");
+	printf("\n enter the data or -1 to end: ");
 	scanf("%d",&num);
 	while(num!= -1)
 	{
@@ -49,8 +55,10 @@ struct node* createll(struct node* start)
 		{
 			ptr = start;
 			while(ptr->next != NULL)
-				ptr = ptr -> next;
-			ptr->next=newnode;
+			{
+				ptr = ptr->next;
+				}	
+			ptr->next = newnode;
 			newnode->next=NULL;
 	    }
 	    printf("\n enter the data: ");
@@ -67,4 +75,16 @@ struct node* createll(struct node* start)
 			printf("%d\t ", ptr->data);
 			ptr=ptr->next;
 		}
+	}
+	struct node * insert_beg(struct node * start)
+	{
+		struct node * newnode;
+		int num;
+		printf("\n enter the data: ");
+		scanf("%d",&num);
+		newnode=(struct node *)malloc(sizeof(struct node));
+		newnode->data=num;
+		newnode->next=start;
+		start=newnode;
+		return start;
 	}
